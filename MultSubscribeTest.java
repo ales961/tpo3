@@ -24,7 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class SubscribeTest {
+public class MultSubscribeTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -34,7 +34,7 @@ public class SubscribeTest {
     driver.quit();
   }
   @Test
-  public void chromeSubscribe() {
+  public void chromeMultSubscribe() {
     System.setProperty("webdriver.chrome.driver","src\\main\\resources\\chromedriver.exe");
     driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
@@ -52,19 +52,18 @@ public class SubscribeTest {
     driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[2]/a")).click();
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"recomend\"]/div/ul/li[1]/a[2]")).click();
-    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+    driver.findElement(By.xpath("//*[@id=\"recomend\"]/div/ul/li[2]/a[2]")).click();
+    driver.findElement(By.xpath("//*[@id=\"recomend\"]/div/ul/li[3]/a[2]")).click();
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[2]/a")).click();
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[1]/a")).click();
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-    {
-      List<WebElement> elements = driver.findElements(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[2]/div/span[2]/a"));
-      assert(elements.size() > 0);
-    }
-    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+    assertEquals(driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[1]/a")).getText(), "Сейчас подписано: 4");
+
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[2]/div/span[1]/a")).click();
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[2]/div/span[2]/a")).click();
-    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[2]/div/span[4]/a")).click();
+
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[2]/a")).click();
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[1]/a")).click();
@@ -72,10 +71,11 @@ public class SubscribeTest {
     assertEquals(driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[1]/a")).getText(), "Сейчас подписано: 1");
     driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a/div[1]/img")).click();
     driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[9]/a")).click();
+    driver.close();
   }
 
   @Test
-  public void firefoxSubscribe() {
+  public void firefoxMultSubscribe() {
     System.setProperty("webdriver.gecko.driver","src\\main\\resources\\geckodriver.exe");
     driver = new FirefoxDriver();
     js = (JavascriptExecutor) driver;
@@ -93,18 +93,18 @@ public class SubscribeTest {
     driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[2]/a")).click();
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"recomend\"]/div/ul/li[1]/a[2]")).click();
+    driver.findElement(By.xpath("//*[@id=\"recomend\"]/div/ul/li[2]/a[2]")).click();
+    driver.findElement(By.xpath("//*[@id=\"recomend\"]/div/ul/li[3]/a[2]")).click();
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[2]/a")).click();
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[1]/a")).click();
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-    {
-      List<WebElement> elements = driver.findElements(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[2]/div/span[2]/a"));
-      assert(elements.size() > 0);
-    }
-    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+    assertEquals(driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[1]/a")).getText(), "Сейчас подписано: 4");
+
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[2]/div/span[1]/a")).click();
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[2]/div/span[2]/a")).click();
-    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[2]/div/span[4]/a")).click();
+
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[2]/a")).click();
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[1]/a")).click();
@@ -112,5 +112,6 @@ public class SubscribeTest {
     assertEquals(driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[2]/div[1]/ul/li[1]/a")).getText(), "Сейчас подписано: 1");
     driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a/div[1]/img")).click();
     driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[9]/a")).click();
+
   }
 }

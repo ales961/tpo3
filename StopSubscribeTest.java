@@ -15,7 +15,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
@@ -25,7 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class AuthTest {
+public class StopSubscribeTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -35,13 +34,14 @@ public class AuthTest {
     driver.quit();
   }
   @Test
-  public void chromeAuth() {
+  public void chromeStopSubscribe() {
     System.setProperty("webdriver.chrome.driver","src\\main\\resources\\chromedriver.exe");
     driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
 
     driver.get("https://subscribe.ru/");
+    driver.manage().window().setSize(new Dimension(1920, 1080));
     driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a")).click();
     driver.findElement(By.xpath("//*[@id=\"credential_0\"]")).sendKeys("alles695@mail.ru");
     driver.findElement(By.xpath("//*[@id=\"credential_1\"]")).click();
@@ -49,22 +49,31 @@ public class AuthTest {
     driver.findElement(By.xpath("//*[@id=\"js_loginFormBut\"]")).click();
     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a/div[1]/img")).click();
-    driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[1]/a")).click();
-    assertEquals(driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[1]/div/h3")).getText(), "Редактирование профиля");
+    driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[2]/a")).click();
+    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[1]/ul/li[6]/a")).click();
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[3]/div/div[2]/form/div/div/input")).click();
+    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a/div[1]/img")).click();
+    driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[2]/a")).click();
+    assertEquals(driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[1]/ul/li[6]/a")).getText(), "Возобновить приостановленное получение подписок");
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[1]/ul/li[6]/a")).click();
+    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a/div[1]/img")).click();
     driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[9]/a")).click();
-    driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a")).click();
-    assertEquals(driver.findElement(By.xpath("//*[@id=\"js_tap_panel_auth\"]/h1")).getText(), "Войти на сайт");
+    driver.close();
   }
 
   @Test
-  public void firefoxAuth() {
+  public void firefoxStopSubscribe() {
     System.setProperty("webdriver.gecko.driver","src\\main\\resources\\geckodriver.exe");
     driver = new FirefoxDriver();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
 
     driver.get("https://subscribe.ru/");
+    driver.manage().window().setSize(new Dimension(1920, 1080));
     driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a")).click();
     driver.findElement(By.xpath("//*[@id=\"credential_0\"]")).sendKeys("alles695@mail.ru");
     driver.findElement(By.xpath("//*[@id=\"credential_1\"]")).click();
@@ -72,12 +81,19 @@ public class AuthTest {
     driver.findElement(By.xpath("//*[@id=\"js_loginFormBut\"]")).click();
     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a/div[1]/img")).click();
-    driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[1]/a")).click();
-    assertEquals(driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[1]/div/h3")).getText(), "Редактирование профиля");
+    driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[2]/a")).click();
+    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[1]/ul/li[6]/a")).click();
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[3]/div/div[2]/form/div/div/input")).click();
+    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a/div[1]/img")).click();
+    driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[2]/a")).click();
+    assertEquals(driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[1]/ul/li[6]/a")).getText(), "Возобновить приостановленное получение подписок");
+    driver.findElement(By.xpath("//*[@id=\"all\"]/section/div[2]/div/div/div[6]/div/div[3]/div[1]/ul/li[6]/a")).click();
+    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a/div[1]/img")).click();
     driver.findElement(By.xpath("//*[@id=\"logged_list\"]/li[9]/a")).click();
-    driver.findElement(By.xpath("//*[@id=\"all\"]/header/ul/li[1]/a")).click();
-    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    assertEquals(driver.findElement(By.xpath("//*[@id=\"js_tap_panel_auth\"]/h1")).getText(), "Войти на сайт");
+
   }
 }
